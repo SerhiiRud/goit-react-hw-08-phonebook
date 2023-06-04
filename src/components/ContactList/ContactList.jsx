@@ -9,7 +9,7 @@ import {
 } from 'redux/selectors';
 import { Loader } from 'components/Loader/Loader';
 import { fetchContacts, removeContact } from 'redux/operations';
-import { Contacts, ContactItem, FormButton } from './Contacts.styled';
+import { Contacts, ContactItem, FormButton } from './ContactList.styled';
 
 export const ContactList = () => {
   const dispatch = useDispatch();

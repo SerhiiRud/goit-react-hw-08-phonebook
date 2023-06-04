@@ -1,15 +1,13 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Container, MainBlock } from './Layout.styled';
+import { AppBar } from 'components/AppBar/AppBar';
+import { Outlet } from 'react-router-dom';
 
-export const Layout = ({ children }) => {
+export const Layout = () => {
   return (
-    <Container>
-      <MainBlock>{children}</MainBlock>
-    </Container>
+    <>
+      <AppBar />
+      <main>
+        <Outlet />
+      </main>
+    </>
   );
-};
-
-Layout.propTypes = {
-  children: PropTypes.any.isRequired,
 };

@@ -1,18 +1,25 @@
+import { Suspense } from 'react';
+import { Route, Routes } from 'react-router-dom';
+import { Loader } from './Loader/Loader';
 import { GlobalStyle } from './GlobalStyle';
 import { Layout } from './Layout/Layout';
-import { ContactForm } from './Phonebook/Phonebook';
-import { ContactList } from './Contacts/Contacts';
-import { Filter } from './Filter/Filter';
+import { Home } from 'pages/Home/Home';
+import { Register } from 'pages/Register/Register';
+import { Login } from 'pages/Login/Login';
+import { Contacts } from 'pages/Contacts/Contacts';
 
 export const App = () => {
   return (
-    <Layout>
-      <h1>Phonebook</h1>
-      <ContactForm />
-      <h2>Contacts</h2>
-      <Filter />
-      <ContactList />
+    <Suspense fallback={<Loader />}>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="register" element={<Register />} />
+          <Route path="login" element={<Login />} />
+          <Route path="contacts" element={<Contacts />} />
+        </Route>
+      </Routes>
       <GlobalStyle />
-    </Layout>
+    </Suspense>
   );
 };
