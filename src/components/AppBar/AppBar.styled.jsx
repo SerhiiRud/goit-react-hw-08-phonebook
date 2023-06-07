@@ -2,6 +2,8 @@ import styled from '@emotion/styled';
 import { NavLink as StyledLink } from 'react-router-dom';
 
 export const Header = styled.header`
+  display: flex;
+  justify-content: space-between;
   border-bottom: 2px grey solid;
   padding: 20px;
 `;
