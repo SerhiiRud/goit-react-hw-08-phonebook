@@ -6,9 +6,9 @@ import {
   getFilter,
   getIsLoading,
   getError,
-} from 'redux/selectors';
+} from 'redux/contacts/selectors';
 import { Loader } from 'components/Loader/Loader';
-import { fetchContacts, removeContact } from 'redux/operations';
+import { fetchContacts, removeContact } from 'redux/contacts/operations';
 import { Contacts, ContactItem, FormButton } from './ContactList.styled';
 
 export const ContactList = () => {
