@@ -57,7 +57,7 @@ export const ContactForm = () => {
   return (
     <>
       <Formik
-        initialValues={{ name: '', phone: '' }}
+        initialValues={{ name: '', number: '' }}
         onSubmit={(values, actions) => {
           addContactHandler(values, actions);
         }}
