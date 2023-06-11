@@ -5,8 +5,8 @@ export const Loader = () => {
   return (
     <LoaderContainer>
       <TailSpin
-        height="80"
-        width="80"
+        height="20"
+        width="20"
         color="#B2BEB5"
         ariaLabel="tail-spin-loading"
         radius="1"

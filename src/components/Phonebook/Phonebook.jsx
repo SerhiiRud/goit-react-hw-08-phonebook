@@ -1,33 +1,18 @@
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { useFormik } from 'formik';
-import { object, string } from 'yup';
 import { nanoid } from 'nanoid';
-import { Box, Flex, Input, Button, useColorModeValue } from '@chakra-ui/react';
+import {
+  Box,
+  Flex,
+  Input,
+  Button,
+  useColorModeValue,
+  Heading,
+} from '@chakra-ui/react';
 
 import { addContact } from 'redux/contacts/operations';
 import { getContacts } from 'redux/contacts/selectors';
-
-const userSchema = object().shape({
-  name: string()
-    .min(3)
-    .max(25)
-    .trim()
-    .matches(
-      /^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$/,
-      'Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d`Artagnan'
-    )
-    .required('This field is required!'),
-  number: string()
-    .min(5)
-    .max(15)
-    .trim()
-    .matches(
-      /\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}/,
-      'Phone number must be digits and can contain spaces, dashes, parentheses and can start with +'
-    )
-    .required('This field is required!'),
-});
 
 export const ContactForm = () => {
   const dispatch = useDispatch();
@@ -59,23 +44,24 @@ export const ContactForm = () => {
     onSubmit: (values, actions) => {
       addContactHandler(values, actions);
     },
-    validationSchema: userSchema,
   });
 
   return (
     <>
       <Box
-        p="40px"
-        mr="auto"
-        ml="auto"
-        w="600px"
-        h="600px"
+        p="20px"
+        ml="40px"
+        w="500px"
+        h="350px"
         mb="30px"
         mt="20px"
         border="1px"
         borderColor="black.700"
         borderRadius="8px"
       >
+        <Heading fontSize="2xl" textAlign="center" mb="20px">
+          Add a contact
+        </Heading>
         <form onSubmit={formik.handleSubmit} autoComplete="off">
           <Flex
             align="center"
@@ -95,7 +81,10 @@ export const ContactForm = () => {
               _placeholder={{ color: 'gray.500' }}
               id="name"
               name="name"
-              type="name"
+              type="text"
+              pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+              title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
+              required
               onChange={formik.handleChange}
               value={formik.values.name}
             />
@@ -111,6 +100,9 @@ export const ContactForm = () => {
               id="number"
               name="number"
               type="number"
+              pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+              title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
+              required
               onChange={formik.handleChange}
               value={formik.values.number}
             />

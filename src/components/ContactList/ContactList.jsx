@@ -2,6 +2,14 @@ import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import {
+  Button,
+  useColorModeValue,
+  List,
+  ListItem,
+  SimpleGrid,
+} from '@chakra-ui/react';
+import { DeleteIcon } from '@chakra-ui/icons';
+import {
   getContacts,
   getFilter,
   getIsLoading,
@@ -9,7 +17,6 @@ import {
 } from 'redux/contacts/selectors';
 import { Loader } from 'components/Loader/Loader';
 import { fetchContacts, removeContact } from 'redux/contacts/operations';
-import { Contacts, ContactItem, FormButton } from './ContactList.styled';
 
 export const ContactList = () => {
   const dispatch = useDispatch();
@@ -17,6 +24,7 @@ export const ContactList = () => {
   const isLoading = useSelector(getIsLoading);
   const error = useSelector(getError);
   const filter = useSelector(getFilter);
+  const color = useColorModeValue('gray.400', 'gray.800');
 
   const onDelete = id => {
     dispatch(removeContact(id));
@@ -38,17 +46,32 @@ export const ContactList = () => {
       {isLoading && <Loader />}
       {error && <div>{error}</div>}
       {getVisibleContacts.length > 0 && (
-        <Contacts>
+        <List>
           {visibleContacts.map(contact => (
-            <ContactItem key={contact.id}>
-              <span>{contact.name}: </span>
-              <span>{contact.number}</span>
-              <FormButton type="button" onClick={() => onDelete(contact.id)}>
-                Delete
-              </FormButton>
-            </ContactItem>
+            <ListItem key={contact.id} mb="3px">
+              <SimpleGrid columns={3} spacing={10}>
+                <span>{contact.name}: </span>
+
+                <span>{contact.number}</span>
+
+                <Button
+                  w="50px"
+                  h="30px"
+                  color={color}
+                  bg="gray.600"
+                  _hover={{ bg: '#FF9900' }}
+                  type="button"
+                  disabled={isLoading}
+                  onClick={() => {
+                    onDelete(contact.id);
+                  }}
+                >
+                  <DeleteIcon />
+                </Button>
+              </SimpleGrid>
+            </ListItem>
           ))}
-        </Contacts>
+        </List>
       )}
     </>
   );
