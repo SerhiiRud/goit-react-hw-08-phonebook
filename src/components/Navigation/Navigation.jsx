@@ -1,28 +1,21 @@
-import { Menu, HeaderLink } from './Navigation.styled';
+import { NavLink } from 'react-router-dom';
+import { List, ListItem } from '@chakra-ui/react';
 import { useAuth } from 'hooks';
 
 export const Navigation = () => {
   const { isLoggedIn } = useAuth();
   return (
     <>
-      <div>
-        <Menu>
-          <li>
-            <HeaderLink to="/">Home</HeaderLink>
-          </li>
-          {isLoggedIn && (
-            <li>
-              <HeaderLink to="/contacts">Contacts</HeaderLink>
-            </li>
-          )}
-          {/* <li>
-            <HeaderLink to="/register">Register</HeaderLink>
-          </li>
-          <li>
-            <HeaderLink to="/login">Login</HeaderLink>
-          </li> */}
-        </Menu>
-      </div>
+      <List display="flex" gap="8px">
+        <ListItem _hover={{ color: '#FF9900' }}>
+          <NavLink to="/">Home</NavLink>
+        </ListItem>
+        {isLoggedIn && (
+          <ListItem _hover={{ color: '#FF9900' }}>
+            <NavLink to="/contacts">Contacts</NavLink>
+          </ListItem>
+        )}
+      </List>
     </>
   );
 };

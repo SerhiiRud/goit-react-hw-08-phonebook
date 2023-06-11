@@ -1,15 +1,10 @@
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { Formik } from 'formik';
+import { useFormik } from 'formik';
 import { object, string } from 'yup';
 import { nanoid } from 'nanoid';
-import {
-  FormField,
-  Form,
-  Field,
-  ErrorMessage,
-  FormButton,
-} from './Phonebook.styled';
+import { Box, Flex, Input, Button, useColorModeValue } from '@chakra-ui/react';
+
 import { addContact } from 'redux/contacts/operations';
 import { getContacts } from 'redux/contacts/selectors';
 
@@ -36,6 +31,8 @@ const userSchema = object().shape({
 
 export const ContactForm = () => {
   const dispatch = useDispatch();
+  const bg = useColorModeValue('#423d33', 'transparent');
+  const color = useColorModeValue('gray.400', 'gray.800');
   const contacts = useSelector(getContacts);
 
   const addContactHandler = (values, actions) => {
@@ -54,27 +51,82 @@ export const ContactForm = () => {
     actions.resetForm();
   };
 
+  const formik = useFormik({
+    initialValues: {
+      name: '',
+      number: '',
+    },
+    onSubmit: (values, actions) => {
+      addContactHandler(values, actions);
+    },
+    validationSchema: userSchema,
+  });
+
   return (
     <>
-      <Formik
-        initialValues={{ name: '', number: '' }}
-        onSubmit={(values, actions) => {
-          addContactHandler(values, actions);
-        }}
-        validationSchema={userSchema}
+      <Box
+        p="40px"
+        mr="auto"
+        ml="auto"
+        w="600px"
+        h="600px"
+        mb="30px"
+        mt="20px"
+        border="1px"
+        borderColor="black.700"
+        borderRadius="8px"
       >
-        <Form>
-          <FormField htmlFor="name">Name</FormField>
-          <ErrorMessage name="name" component="span" />
-          <Field type="text" name="name" />
+        <form onSubmit={formik.handleSubmit} autoComplete="off">
+          <Flex
+            align="center"
+            justify="center"
+            gap="24px"
+            direction="column"
+            maxW="320px"
+            m="0 auto"
+          >
+            <label htmlFor="email">Name</label>
+            <Input
+              color={color}
+              bg={bg}
+              borderColor="gray.400"
+              variant="filled"
+              placeholder="Name"
+              _placeholder={{ color: 'gray.500' }}
+              id="name"
+              name="name"
+              type="name"
+              onChange={formik.handleChange}
+              value={formik.values.name}
+            />
 
-          <FormField htmlFor="number">Number</FormField>
-          <ErrorMessage name="number" component="span" />
-          <Field type="tel" name="number" />
+            <label htmlFor="email">Number</label>
+            <Input
+              color={color}
+              bg={bg}
+              borderColor="gray.400"
+              variant="filled"
+              placeholder="Number"
+              _placeholder={{ color: 'gray.500' }}
+              id="number"
+              name="number"
+              type="number"
+              onChange={formik.handleChange}
+              value={formik.values.number}
+            />
 
-          <FormButton type="submit">Add contact</FormButton>
-        </Form>
-      </Formik>
+            <Button
+              type="submit"
+              w="100%"
+              color={color}
+              bg="gray.600"
+              _hover={{ bg: '#FF9900' }}
+            >
+              Add contact
+            </Button>
+          </Flex>
+        </form>
+      </Box>
     </>
   );
 };

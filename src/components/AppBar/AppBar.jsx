@@ -1,5 +1,4 @@
-import { useColorMode, Button } from '@chakra-ui/react';
-import { useColorModeValue } from '@chakra-ui/react';
+import { useColorModeValue, useColorMode, Button } from '@chakra-ui/react';
 import { Flex, Box } from '@chakra-ui/react';
 import { SunIcon, MoonIcon } from '@chakra-ui/icons';
 import { Navigation } from 'components/Navigation/Navigation';
