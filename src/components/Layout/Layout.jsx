@@ -8,12 +8,14 @@ export const Layout = () => {
   const bg = useColorModeValue('#423d33', 'transparent');
   const color = useColorModeValue('white', 'gray.800');
   return (
-    <Box mb={4} bg={bg} color={color} w="100%" h="1200px">
-      <AppBar />
-      <main>
-        <Outlet />
-      </main>
+    <>
+      <Box mb={0} bg={bg} color={color} w="100%" h="1000px">
+        <AppBar />
+        <main>
+          <Outlet />
+        </main>
+      </Box>
       <Footer />
-    </Box>
+    </>
   );
 };

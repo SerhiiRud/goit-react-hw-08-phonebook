@@ -6,7 +6,7 @@ export const Footer = () => {
   const color = useColorModeValue('white', 'white');
 
   return (
-    <Box p="20px" w="100%" position="fixed" bottom="0" bg={bg} color={color}>
+    <Box p="20px" w="100%" bg={bg} color={color}>
       <Text>@SerhiiRud 2023 &#127482;&#127462;</Text>
     </Box>
   );
